@@ -1,8 +1,4 @@
-#source common.sh
-#
-#print_head "Setup mongodb repos"
-#cp configs/mongo.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
-#status_check $?
+
 #print_head "Install Mongodb"
 #yum install mongodb-org -y &>>${log_file}
 #status_check $?
@@ -20,3 +16,7 @@
     src: mongo.repo
     dest: /etc/yum.repos.d/mongo.repo
 
+- name: Install Mongodb
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
