@@ -1,10 +1,6 @@
 
-#print_head "Removing Old Contents"
-#rm -rf /usr/share/nginx/html/*
-#status_check $?
-#print_head "Downloading frontend"
-#curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
-#status_check $?
+
+
 #print_head "Extracting frontend"
 #cd /usr/share/nginx/html
 #unzip /tmp/frontend.zip &>>${log_file}
@@ -43,4 +39,10 @@
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /tmp/frontend.zip
+    remote_src: yes
+
+- name: Extracting frontend
+  ansible.builtin.unarchive:
+    src: /tmp/frontend.zip
+    dest: /usr/share/nginx/html
     remote_src: yes
