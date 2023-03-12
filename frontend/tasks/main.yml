@@ -1,3 +1,41 @@
-- name: Frontend
-  ansible.builtin.debug:
-    msg: frontend
+
+#print_head "Removing Old Contents"
+#rm -rf /usr/share/nginx/html/*
+#status_check $?
+#print_head "Downloading frontend"
+#curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
+#status_check $?
+#print_head "Extracting frontend"
+#cd /usr/share/nginx/html
+#unzip /tmp/frontend.zip &>>${log_file}
+#status_check $?
+#print_head "Copying into roboshop conf"
+#cp ${code_dir}/configs/nginx-roboshop.conf /etc/nginx/default.d/roboshop.conf
+#status_check $?
+#print_head "Enabling Nginx"
+#systemctl enable nginx &>>${log_file}
+#status_check $?
+#print_head "Starting Nginx"
+#systemctl restart nginx &>>${log_file}
+#status_check $?
+
+- name: Install Nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: installed
+
+- name: Delete Old contents Dir
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+    dest: /tmp/frontend.zip
+    remote_src: yes
