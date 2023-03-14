@@ -29,3 +29,9 @@
     state: installed
     disable_gpg_check: true
 
+- name: Enable redis 6.2
+  ansible.builtin.dnf:
+    name: '@redis:remi-6.2'
+    state: present
+
+
