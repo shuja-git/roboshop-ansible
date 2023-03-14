@@ -1,13 +1,3 @@
-#source common.sh
-#
-#print_head "Install Redis Repo files"
-#yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>${log_file}
-#status_check $?
-#
-#print_head "Enable Redis 6.2"
-#dnf module enable redis:remi-6.2 -y &>>${log_file}
-#status_check $?
-#
 #print_head "Install Redis"
 #yum install redis -y &>>${log_file}
 #status_check $?
@@ -33,5 +23,10 @@
   ansible.builtin.dnf:
     name: '@redis:remi-6.2'
     state: present
+
+- name: Install Redis
+  ansible.builtin.yum:
+    name: redis
+    state: installed
 
 
