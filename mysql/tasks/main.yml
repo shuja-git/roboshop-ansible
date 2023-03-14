@@ -62,6 +62,6 @@
 
 - name: Set Root Password
   ansible.builtin.shell: mysql_secure_installation --set-root-pass RoboShop@1
-
+  ignore_errors: True
 
 
