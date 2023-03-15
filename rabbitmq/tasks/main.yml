@@ -1,10 +1,10 @@
 - name: setup Earlang Repo
-  ansible.builtin.shell:
-    name: https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh |  bash
+  ansible.builtin.shell: https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh |  bash
+
 
 - name: set up Rabbitmq Repo
-  ansible.builtin.shell:
-    name: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+  ansible.builtin.shell: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+
 
 - name: install Rabbit and Earlang
   ansible.builtin.yum:
