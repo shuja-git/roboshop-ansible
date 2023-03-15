@@ -1,0 +1,3 @@
+- name: from common role tasks
+  debug:
+    msg: Nodejs
