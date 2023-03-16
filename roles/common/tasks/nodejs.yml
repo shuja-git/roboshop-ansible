@@ -1,3 +1,32 @@
-- name: from common role tasks
-  debug:
-    msg: Nodejs
+#print_head "Configure Nodejs Repo"
+#curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
+#status_check $?
+#print_head "Install Nodejs"
+#yum install nodejs -y &>>${log_file}
+#status_check $?
+#
+#app_prereq_setup
+#
+#print_head "Installing Nodejs dependencies"
+#npm install &>>${log_file}
+#status_check $?
+#
+#
+#schema_setup
+#systemd_setup
+
+- name: Configure Nodejs Repo
+  ansible.builtin.shell: https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install Nodejs
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: App Pre-requisites
+  ansible.builtin.import_tasks:
+    file: app-rereq-setup.yml
+
+- name: Install Nodejs dependencies
+  community.general.npm:
+    path: /app

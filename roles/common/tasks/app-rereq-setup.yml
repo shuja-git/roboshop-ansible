@@ -1,0 +1,41 @@
+#print_head "Create Roboshop user"
+#id roboshop &>>${log_file}
+#if [ "$?" -ne 0 ]; then
+#useradd roboshop
+#fi
+#status_check $?
+#print_head "Create application directory"
+#if [ ! -d /app ]; then
+#mkdir /app
+#fi
+#status_check $?
+#print_head "Delete Old contents"
+#rm -rf /app/* &>>${log_file}
+#status_check $?
+#print_head "Downloading app contents"
+#curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
+#status_check $?
+#cd /app
+#
+#print_head "Extracting app contents"
+#unzip /tmp/${component}.zip &>>${log_file}
+#status_check $?
+- name: Create Application User Roboshop
+  ansible.builtin.user:
+    name: Roboshop
+
+- name: Delete Old contents
+  ansible.builtin.file:
+    path: /app
+    state: absent
+
+- name: Create App Dir
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Downloading {{ component }} contents
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+    dest: /app
+    remote_src: yes
