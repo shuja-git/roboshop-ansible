@@ -30,3 +30,7 @@
 - name: Install Nodejs dependencies
   community.general.npm:
     path: /app
+
+- name: Schema Setup
+  ansible.builtin.import_tasks:
+    file: schema-setup.yml
