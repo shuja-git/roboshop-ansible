@@ -1,3 +1,4 @@
-- name: Pyament
-  ansible.builtin.debug:
-    msg: Payment
+- name: Load python
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: python
